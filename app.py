@@ -1,4 +1,5 @@
 import csv
+import io
 import psycopg
 import os
 
@@ -45,11 +46,14 @@ def amp_post():
         flash('No selected file')
         return redirect(request.url)
     if file and allowed_file(filename):
-        reader = csv.DictReader(file.read())
-        for row in reader:
-            amplitude_id = row["amplitude_id"]
-            with psycopg.connect(**conn_dict) as conn:
-                with conn.cursor() as cur:
-                    cur.execute("INSERT INTO amplitude (amplitude_id) VALUES (%s)", (amplitude_id))
-                    conn.commit()
-        return redirect(url_for('amp_get', name=filename))
+         with io.TextIOWrapper(file) as fh:
+             reader = csv.DictReader(fh)
+             next(reader, None)  # skip the headers
+             for row in reader:
+                 print(row)
+                 amplitude_id = row["amplitude_id"]
+                 with psycopg.connect(**conn_dict) as conn:
+                     with conn.cursor() as cur:
+                         cur.execute("INSERT INTO amplitude (amplitude_id) VALUES (%s)", (amplitude_id))
+                         conn.commit()
+    return redirect(url_for('amp_get', name=filename))
