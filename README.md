@@ -1,1 +1,33 @@
 # ampdelete
+
+Delete amplitude IDs!
+
+## CLI
+
+### Prerequisites
+
+- [Poetry](https://python-poetry.org/docs/#installation)
+
+After installation, run the following command to create the environment for the application:
+
+```bash
+poetry install
+```
+
+### secret.py
+
+Create a file named `secret.py` in `src`. 
+This file must contain the API key and secret key for the project you wish to run deletions on, and is required to run the command-line interface.
+
+```
+API_KEY="your api key here"
+SECRET_KEY="your secret key here"
+```
+
+### Running
+
+This assumes that the csv is well-formed, and that there exists a key named "amplitude_id" (without any tabs inside the string, and so on).
+
+```bash
+poetry run python path/to/csv-file.csv
+```
