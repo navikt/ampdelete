@@ -5,10 +5,10 @@ import delete
 import secret
 
 parser = argparse.ArgumentParser(
-    prog="ampdelete",
-    description="Deletes amplitude IDs from a Cohort CSV file"
+    prog="delete",
+    description="Requests deletion of scary data from Amplitude, based on a Cohort CSV file containing an amplitude_id field."
 )
-parser.add_argument("csvfile")
+parser.add_argument("csvfile", help="A file that contains an amplitude_id column, used to request deletions.")
 args = parser.parse_args()
 
 deleter = delete.Delete(secret.API_KEY, secret.SECRET_KEY)
