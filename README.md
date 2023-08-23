@@ -31,5 +31,5 @@ SECRET_KEY="your secret key here"
 This assumes that the CSV is well-formed, and that there exists a key named "amplitude_id" (without any tabs inside the string, and so on).
 
 ```bash
-poetry run python path/to/csv-file.csv
+poetry run python src/cli.py path/to/csv-file.csv
 ```
